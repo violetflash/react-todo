@@ -1,3 +1,16 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #e3e0cf;
+  font-family: Abel, sans-serif;
+  text-align: left;
+  font-weight: 700;
+  /*background-color: #e3e0cf;*/
 }

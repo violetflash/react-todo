@@ -1,7 +1,16 @@
 .Item {
+  display: flex;
   flex-grow: 1;
+  align-items: center;
+  height: 100%;
 }
 
 .important {
-  color: tomato;
+  font-weight: 700;
+  font-size: 18px;
+  color: #dba804;
+}
+
+.done {
+  text-decoration: line-through;
 }

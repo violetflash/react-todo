@@ -1,0 +1,9 @@
+.Header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  &__stats {
+    margin: 0 0 10px 0;
+  }
+}

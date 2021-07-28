@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import s from './TodoListItem.module.scss'
 import { addConditionedStyle } from "../../functions/functions";
 
-const TodoListItem = ({ label, important = false }) => {
+export default class TodoListItem extends Component {
 
-    const itemClass = addConditionedStyle(important, s.Item, s.important);
+    itemHandler = () => {
+        console.log(this.props.label);
+    }
 
-    return (
-        <span className={itemClass}>{label}</span>
-    )
+    render() {
+        let { label, isDone, important = false } = this.props;
 
-};
+        let itemClass = addConditionedStyle(important, [s.Item], s.important);
+        itemClass = addConditionedStyle(isDone, [itemClass], s.done);
+        // console.log(itemClass.join(' '));
 
-export default TodoListItem;
+        return (
+            <span
+                className={itemClass.join(' ')}
+                onClick={this.itemHandler}
+            >
+                {label}
+            </span>
+        )
+    }
+}
+
+// TodoListItem.defaultProps = {important: false}

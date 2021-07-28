@@ -1,8 +1,13 @@
 import React from 'react';
+import s from './Header.module.scss';
 
-const Header = props => {
+const Header = ({ todo, done }) => {
     return (
-        <h1>Todo App</h1>
+        <header className={s.Header}>
+            <h1>React Todo App</h1>
+            <h2 className={s.Header__stats}>{todo} more to do, {done} done</h2>
+        </header>
+
     )
 
 };

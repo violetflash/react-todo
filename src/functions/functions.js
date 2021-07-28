@@ -1,9 +1,11 @@
-const addConditionedStyle = (condition, actualClass, newClass) => {
-    const classes = [actualClass]
+const addConditionedStyle = (condition, actualClasses, newClass) => {
+    const classes = [...actualClasses]
+
     if (condition) {
         classes.push(newClass);
     }
-    return classes.join(' ');
+
+    return classes;
 }
 
 export { addConditionedStyle };
