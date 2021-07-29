@@ -12,23 +12,16 @@ class Todo extends React.Component {
     state = {
         data: localStorage.getItem('react-todo-data') ?
             JSON.parse(localStorage.getItem('react-todo-data')) :
-            [
-                {id: 1, label: 'Eat Soup', important: false, isDone: false},
-                {id: 2, label: 'Drink Coffee', important: false, isDone: false},
-                {id: 3, label: 'Create React App', important: false, isDone: false}
-            ]
+            [],
+        inputValue: ''
+    }
+
+    getInputValue = (e) => {
+        this.setState({inputValue: e.target.value});
     }
 
     getMaxId() {
-        return Math.max(...this.state.data.map(el => el.id));
-    }
-
-    getActiveNum() {
-        return this.state.data.filter((el) => !el.isDone).length;
-    }
-
-    getDoneNum() {
-        return this.state.data.length - this.getActiveNum();
+        return this.state.data.length ? Math.max(...this.state.data.map(el => el.id)) : 0;
     }
 
     componentDidUpdate() {
@@ -52,21 +45,24 @@ class Todo extends React.Component {
 
     addItem = (e) => {
         e.preventDefault();
+
+        if (! this.state.inputValue) return;
         const newObject = {
             id: this.getMaxId() + 1,
-            label: 'Some text here from input value',
+            label: this.state.inputValue,
             important: false,
             isDone: false
         }
         this.setState(({ data }) => {
             return {data: [...data, newObject]};
         })
+        this.setState({inputValue: ''});
     }
 
     render() {
         const {data} = this.state;
-        const todo = this.getActiveNum();
-        const done = this.getDoneNum();
+        const todo = this.state.data.filter((el) => !el.isDone).length;
+        const done = this.state.data.length - todo;
 
         return (
             <article className={s.Todo}>
@@ -77,7 +73,11 @@ class Todo extends React.Component {
                     <Filter/>
                 </div>
                 <TodoList data={data} setChange={this.setChange} deleteItem={this.deleteItem}/>
-                <AddNewItemForm addItem={this.addItem}/>
+                <AddNewItemForm
+                    addItem={this.addItem}
+                    inputValue={this.state.inputValue}
+                    getInputValue={this.getInputValue}
+                />
             </article>
         )
 

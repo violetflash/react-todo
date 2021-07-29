@@ -16,7 +16,7 @@
     cursor: pointer;
 
     &:hover {
-      border-color: #85c1e9;
+      //border-color: #85c1e9;
 
       .TodoList__buttons {
         transform: translateX(0);
@@ -25,9 +25,8 @@
       }
     }
   }
+}
 
-  &__buttons {
-
-  }
-
+.important {
+  border-color: #dba804;
 }

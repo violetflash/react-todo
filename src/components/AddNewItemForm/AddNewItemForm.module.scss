@@ -1,8 +1,16 @@
 .AddNew {
+
+  display: flex;
+  //align-items: center;
+  justify-content: center;
+
   &__button {
+    //margin-left: -2px;
     border: 2px solid #85c1e9;
-    border-radius: 4px;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
     padding: 10px;
+    min-width: 80px;
     transition: all 0.3s;
     cursor: pointer;
 
@@ -10,5 +18,12 @@
       border-color: #bfdef5;
       background-color: #bfdef5;
     }
+  }
+
+  &__input {
+    flex-grow: 1;
+    border: 2px solid #85c1e9;
+    border-radius: 4px 0 0 4px;
+    padding: 0 15px;
   }
 }
