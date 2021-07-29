@@ -8,4 +8,6 @@ const addConditionedStyle = (condition, actualClasses, newClass) => {
     return classes;
 }
 
-export { addConditionedStyle };
+const capitalizer = (str) => str[0].toUpperCase() + str.slice(1);
+
+export { addConditionedStyle, capitalizer };

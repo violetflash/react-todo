@@ -59,6 +59,30 @@ class Todo extends React.Component {
         this.setState({inputValue: ''});
     }
 
+    filterItems = (key) => {
+        this.originData = this.state.data;
+        if (key === 'all') {
+            this.setState({data: this.originData});
+            return;
+        }
+
+        if (key === 'active') {
+            const filtered = this.originData.filter((elem) => {
+                return !elem.isDone;
+            })
+            this.setState({data: filtered});
+            return;
+        }
+
+        if (key === 'done') {
+            const filtered = this.originData.filter((elem) => {
+                return elem.isDone;
+            })
+            this.setState({data: filtered});
+        }
+
+    }
+
     render() {
         const {data} = this.state;
         const todo = this.state.data.filter((el) => !el.isDone).length;
@@ -70,7 +94,7 @@ class Todo extends React.Component {
                 <Header todo={todo} done={done}/>
                 <div className={s.Todo__top}>
                     <SearchPanel/>
-                    <Filter/>
+                    <Filter filterItems={this.filterItems}/>
                 </div>
                 <TodoList data={data} setChange={this.setChange} deleteItem={this.deleteItem}/>
                 <AddNewItemForm
