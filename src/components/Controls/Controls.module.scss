@@ -3,11 +3,11 @@
   align-items: center;
   margin: 0 0 0 20px;
   //border-left: 2px solid #ccc;
-  height: calc(100%);
-  transition: all 0.3s ease;
+  height: 100%;
   //opacity: 0;
   //visibility: hidden;
   //transform: translateX(100%);
+  transition: all 0.3s ease;
 
   button {
     display: inline-block;

@@ -6,15 +6,19 @@ import s from './TodoList.module.scss';
 
 function TodoList(props) {
 
-    let {data} = props;
+    let {data, setChange, deleteItem} = props;
 
     const elements = data.map(item => {
-        const {id, ...rest} = item;
+        const { id } = item;
 
         return (
             <li key={id} className={s.TodoList__li}>
-                <TodoListItem {...rest} />
-                <Controls important={rest.important}/>
+                <TodoListItem {...item} setChange={setChange}/>
+                <Controls
+                    id={id}
+                    important={item.important}
+                    setChange={setChange}
+                    deleteItem={deleteItem}/>
             </li>
         );
     });

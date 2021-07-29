@@ -1,0 +1,14 @@
+.AddNew {
+  &__button {
+    border: 2px solid #85c1e9;
+    border-radius: 4px;
+    padding: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      border-color: #bfdef5;
+      background-color: #bfdef5;
+    }
+  }
+}

@@ -4,21 +4,20 @@ import { addConditionedStyle } from "../../functions/functions";
 
 export default class TodoListItem extends Component {
 
-    itemHandler = () => {
-        console.log(this.props.label);
-    }
+    // itemHandler = () => {
+    //     console.log(this.props.label);
+    // }
 
     render() {
-        let { label, isDone, important = false } = this.props;
+        let { id, setChange, label, isDone, important = false } = this.props;
 
         let itemClass = addConditionedStyle(important, [s.Item], s.important);
-        itemClass = addConditionedStyle(isDone, [itemClass], s.done);
-        // console.log(itemClass.join(' '));
+        itemClass = addConditionedStyle(isDone, [...itemClass], s.done);
 
         return (
             <span
                 className={itemClass.join(' ')}
-                onClick={this.itemHandler}
+                onClick={() => setChange(id, 'isDone')}
             >
                 {label}
             </span>

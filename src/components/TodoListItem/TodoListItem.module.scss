@@ -3,6 +3,8 @@
   flex-grow: 1;
   align-items: center;
   height: 100%;
+  transform: translateX(0);
+  transition: all 0.3s ease;
 }
 
 .important {
@@ -12,5 +14,19 @@
 }
 
 .done {
+  position: relative;
   text-decoration: line-through;
+  transform: translateX(20px);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    width: 12px;
+    height: 12px;
+    background-image: url("./icons/check.svg");
+    background-position: center;
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+  }
 }

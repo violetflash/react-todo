@@ -14,11 +14,15 @@ const ExclamationBtn = styled.button`
 
 const Controls = props => {
 
+    const { id, setChange, deleteItem } = props;
     const important = props.important ? exclamationActive : exclamation;
 
     return (
         <div className={s.Controls}>
-            <button className={s.Controls__remove}>
+            <button
+                className={s.Controls__remove}
+                onClick={() => deleteItem(id)}
+            >
                 <svg id="Layer_1" enableBackground="new 0 0 512 512" height="512" viewBox="0 0 512 512"
                      width="512" xmlns="http://www.w3.org/2000/svg">
                     <g>
@@ -33,7 +37,11 @@ const Controls = props => {
                     </g>
                 </svg>
             </button>
-            <ExclamationBtn img={important} className={s.Controls__check} />
+            <ExclamationBtn
+                img={important}
+                className={s.Controls__check}
+                onClick={() => setChange(id, 'important')}
+            />
         </div>
     )
 
