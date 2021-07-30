@@ -81,7 +81,7 @@ class Todo extends React.Component {
 
     searchData = (arr, key) => {
         if (key) {
-            const regex = new RegExp(key);
+            const regex = new RegExp(key, 'i');
             return arr.filter((item) => {
                 return regex.test(item.label);
             })
