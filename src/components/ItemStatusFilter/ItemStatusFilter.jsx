@@ -4,16 +4,11 @@ import { addConditionedStyle, capitalizer } from "../../functions/functions";
 
 export default class ItemStatusFilter extends Component {
 
-    state = {
-        activeBtn: 'all'
-    }
-
     btnClass = [s.Filter__btn];
 
-    setActiveBtn = (e) => {
+    buttonHandler = (e) => {
         const target = e.target;
-        this.setState({activeBtn: target.value});
-        this.props.filterItems(target.value);
+        this.props.getFilterValue(target.value);
     }
 
     getClassName = () => {
@@ -21,10 +16,11 @@ export default class ItemStatusFilter extends Component {
     }
 
     render() {
+
         const values = ['all', 'active', 'done']
         const buttons = values.map((elem, index) => (
             <button
-                className={this.state.activeBtn === elem ? this.getClassName() : s.Filter__btn}
+                className={this.props.currentFilter === elem ? this.getClassName() : s.Filter__btn}
                 key={index}
                 type={"button"}
                 value={elem}>
@@ -32,7 +28,7 @@ export default class ItemStatusFilter extends Component {
             </button>
         ))
         return (
-            <div className={s.Filter} onClick={this.setActiveBtn}>
+            <div className={s.Filter} onClick={this.buttonHandler}>
                 {buttons}
             </div>
         )

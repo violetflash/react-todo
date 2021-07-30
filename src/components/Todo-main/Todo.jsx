@@ -6,27 +6,31 @@ import Filter from '../ItemStatusFilter/';
 import s from './Todo.module.scss';
 import Repo from "../Repo";
 import AddNewItemForm from "../AddNewItemForm";
+import { checkLS } from "../../functions/functions";
 
 class Todo extends React.Component {
 
-    state = {
-        data: localStorage.getItem('react-todo-data') ?
-            JSON.parse(localStorage.getItem('react-todo-data')) :
-            [],
-        inputValue: ''
-    }
+    LS_KEY = "react-todo-data";
 
-    getInputValue = (e) => {
-        this.setState({inputValue: e.target.value});
-    }
+    state = {
+        data: checkLS(this.LS_KEY, 'data', []),
+        addTodoInput: checkLS(this.LS_KEY, 'inputValue', ''),
+        filter: checkLS(this.LS_KEY, 'filter', 'all'),
+        searchTerm: checkLS(this.LS_KEY, 'searchTerm', ''),
+    };
 
     getMaxId() {
         return this.state.data.length ? Math.max(...this.state.data.map(el => el.id)) : 0;
     }
 
     componentDidUpdate() {
-        localStorage.setItem('react-todo-data', JSON.stringify(this.state.data));
+        localStorage.setItem(this.LS_KEY, JSON.stringify(this.state));
     }
+
+
+    getInputValue = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
 
     setChange = (id, key) => {
         const newData = [...this.state.data];
@@ -34,76 +38,80 @@ class Todo extends React.Component {
         const [idItem] = newData.filter((item) => item.id === id);
         idItem[key] = !idItem[key];
         newData[idItemIndex] = idItem;
-        this.setState({data: newData});
-    }
+        this.setState({ data: newData });
+    };
 
     deleteItem = (id) => {
-        this.setState(({data}) => {
-            return {data: data.filter((item) => item.id !== id)}
-        })
-    }
+        this.setState(({ data }) => {
+            return { data: data.filter((item) => item.id !== id) };
+        });
+    };
 
     addItem = (e) => {
         e.preventDefault();
 
-        if (! this.state.inputValue) return;
+        if (!this.state.addTodoInput) return;
         const newObject = {
             id: this.getMaxId() + 1,
-            label: this.state.inputValue,
+            label: this.state.addTodoInput,
             important: false,
             isDone: false
-        }
+        };
         this.setState(({ data }) => {
-            return {data: [...data, newObject]};
-        })
-        this.setState({inputValue: ''});
-    }
+            return { data: [...data, newObject] };
+        });
+        this.setState({ addTodoInput: '' });
+    };
 
-    filterItems = (key) => {
-        this.originData = this.state.data;
-        if (key === 'all') {
-            this.setState({data: this.originData});
-            return;
+    getFilterValue = (key) => {
+        this.setState({ filter: key });
+    };
+
+    filterData = (key) => {
+        switch (key) {
+        case 'all':
+            return this.state.data;
+        case 'active':
+            return this.state.data.filter((item) => !item.isDone);
+        case 'done':
+            return this.state.data.filter((item) => item.isDone);
+        default: return this.state.data;
         }
+    };
 
-        if (key === 'active') {
-            const filtered = this.originData.filter((elem) => {
-                return !elem.isDone;
+    searchData = (arr, key) => {
+        if (key) {
+            const regex = new RegExp(key);
+            return arr.filter((item) => {
+                return regex.test(item.label);
             })
-            this.setState({data: filtered});
-            return;
         }
-
-        if (key === 'done') {
-            const filtered = this.originData.filter((elem) => {
-                return elem.isDone;
-            })
-            this.setState({data: filtered});
-        }
-
-    }
+        return arr;
+    };
 
     render() {
-        const {data} = this.state;
+        const { filter } = this.state;
         const todo = this.state.data.filter((el) => !el.isDone).length;
         const done = this.state.data.length - todo;
 
+        const filtered = this.filterData(this.state.filter);
+        const data = this.searchData(filtered, this.state.searchTerm);
         return (
             <article className={s.Todo}>
                 <Repo/>
                 <Header todo={todo} done={done}/>
                 <div className={s.Todo__top}>
-                    <SearchPanel/>
-                    <Filter filterItems={this.filterItems}/>
+                    <SearchPanel getInputValue={this.getInputValue} value={this.state.searchTerm}/>
+                    <Filter getFilterValue={this.getFilterValue} currentFilter={filter}/>
                 </div>
                 <TodoList data={data} setChange={this.setChange} deleteItem={this.deleteItem}/>
                 <AddNewItemForm
                     addItem={this.addItem}
-                    inputValue={this.state.inputValue}
+                    value={this.state.addTodoInput}
                     getInputValue={this.getInputValue}
                 />
             </article>
-        )
+        );
 
     }
 }

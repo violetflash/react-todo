@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import s from './TodoListItem.module.scss'
-import { addConditionedStyle } from "../../functions/functions";
+import { addConditionedStyle, capitalizer } from "../../functions/functions";
 
 export default class TodoListItem extends Component {
 
@@ -19,7 +19,7 @@ export default class TodoListItem extends Component {
                 className={itemClass.join(' ')}
                 onClick={() => setChange(id, 'isDone')}
             >
-                {label}
+                {capitalizer(label)}
             </span>
         )
     }

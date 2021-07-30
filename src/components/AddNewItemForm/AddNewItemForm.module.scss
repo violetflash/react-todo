@@ -5,7 +5,6 @@
   justify-content: center;
 
   &__button {
-    //margin-left: -2px;
     border: 2px solid #85c1e9;
     border-left: none;
     border-radius: 0 4px 4px 0;
@@ -15,8 +14,7 @@
     cursor: pointer;
 
     &:hover {
-      border-color: #bfdef5;
-      background-color: #bfdef5;
+      background-color: #aad5f3;
     }
   }
 

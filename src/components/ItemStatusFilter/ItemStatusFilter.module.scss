@@ -2,37 +2,38 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 10px;
-  width: 180px;
-  height: 100%;
-  border-radius: 4px;
+
   //border: 2px solid #85C1E9;
   overflow: hidden;
+  margin-left: 10px;
+  border-radius: 4px;
+  width: 180px;
+  height: 100%;
 
   &__btn {
-    font-family: inherit;
-    font-size: 18px;
     display: flex;
+    flex-basis: calc(100% / 3);
     align-items: center;
     justify-content: center;
+    border: 2px solid #85c1e9;
+    border-right: none;
     padding: 0 10px;
-    flex-basis: calc(100% / 3);
     height: 100%;
-    cursor: pointer;
-    border: 2px solid #85C1E9;
-    border-right: none  ;
+    font-family: inherit;
+    font-size: 18px;
     transition: all 0.3s;
+    cursor: pointer;
 
     &:hover {
-      background-color: #85C1E9;
+      background-color: #aad5f3;
     }
 
     &:last-child {
-      border-right: 2px solid #85C1E9;
+      border-right: 2px solid #85c1e9;
     }
   }
 }
 
 .active {
-  background-color: #85C1E9;
+  background-color: #aad5f3;
 }

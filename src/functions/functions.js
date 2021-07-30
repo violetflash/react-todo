@@ -10,4 +10,12 @@ const addConditionedStyle = (condition, actualClasses, newClass) => {
 
 const capitalizer = (str) => str[0].toUpperCase() + str.slice(1);
 
-export { addConditionedStyle, capitalizer };
+//data: localStorage.getItem('react-todo-data') ?
+//             JSON.parse(localStorage.getItem('react-todo-data')).data :
+//             [],
+
+const checkLS = (key, field, initial) => {
+    return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key))[field] : initial;
+};
+
+export { addConditionedStyle, capitalizer, checkLS };
